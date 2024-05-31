@@ -74,19 +74,19 @@ def show_scoreboard():
     #running = True
     #while running:
     while True:
-      screen.fill((200, 200, 200))
-      y = 50
-      for i, (name, score) in enumerate(sorted_scores):
-        text = font.render(f"{i+1}. {name}: {score}", True, (0, 0, 0))
-        screen.blit(text, (100, y))
-        y += 30
-    #for event in pygame.event.get():
-    #    if event.type == pygame.QUIT:
-    #        pygame.quit()
-    #        sys.exit()
-    #    elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-    #        return  # 메뉴로 돌아가기
-      pygame.display.flip()
+        screen.fill((200, 200, 200))
+        y = 50
+        for i, (name, score) in enumerate(sorted_scores):
+            text = font.render(f"{i+1}. {name}: {score}", True, (0, 0, 0))
+            screen.blit(text, (100, y))
+            y += 30
+        pygame.display.flip()    
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+                return  # 메뉴로 돌아가기
     #return
 def play():
     # set display caption
@@ -284,9 +284,9 @@ def menu():
         menu_text = get_font(60).render("CANYON DEFENDERS", True, (152, 213, 234))
         menu_rect = menu_text.get_rect(center=(640, 100))
 
-        play_button = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 300), 
+        play_button = Button(image=pygame.image.load("assets/Play Rect.png"), pos=(640, 200), 
                                 text_input="PLAY", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
-        quit_button = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 500), 
+        quit_button = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 600), 
                                 text_input="QUIT", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
         score_button = Button(image=pygame.image.load("assets/Score Rect.png"), pos=(640, 400), 
                                 text_input="SCORE", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
