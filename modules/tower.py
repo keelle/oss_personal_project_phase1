@@ -15,11 +15,53 @@ class Tower(pygame.sprite.Sprite):
     self._shooting_rate = shooting_rate
     self._shooting_speed = shooting_speed
     self._damage = damage
-    self._price = price    
+    self._price = price
+    self._range = range
     self.range_box = pygame.Rect(pos_x - (width // 2) - (range // 2),
                                      pos_y - (height // 2) - (range // 2),
                                      width + range,
                                      height + range)
+    self.level = 1
+    self.upgrade_level = 0
+    self.upgrade_button_active = False
+    self.button_width = 100 
+    self.button_height = 50  
+    self.upgrade_button_rect = pygame.Rect(0, 0, self.button_width, self.button_height)      
+    self.upgrade_cost = 100  
+  def activate_upgrade_button(self):
+    self.upgrade_button_active = False
+    self.upgrade_button_rect.topleft = (self.rect.right, self.rect.top)
+
+  #def upgrade(self):
+    # Define upgrade increments
+    #upgrade_cost = self._price * 0.75  # Example cost calculation
+    #upgrade_increment = {
+    #    "range": 20,
+    #    "damage": 25,
+    #    "shooting_speed": 5,
+    #    "shooting_rate": -2
+    #}
+                
+    # Upgrade tower attributes                
+    #self._range += upgrade_increment["range"]
+    #self._damage += upgrade_increment["damage"]
+    #self._shooting_speed += upgrade_increment["shooting_speed"]
+    #self._shooting_rate += upgrade_increment["shooting_rate"]
+    #self.level += 1
+    # Update the range box
+    #self.range_box = pygame.Rect(self._pos_x - (self.rect.width // 2) - (self._range // 2),
+    #                             self._pos_y - (self.rect.height // 2) - (self._range // 2),
+    #                             self.rect.width + self._range,
+    #                             self.rect.height + self._range)
+    #return upgrade_cost
+  def upgrade(self):
+    self.level += 1
+    self._damage += 10  
+    self._range += 10  
+    self._shooting_speed += 1  
+    return 100 * self.level  
+
+
 
   def draw_range_box(self, screen):
       # detect mouse hover over tower

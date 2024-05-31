@@ -186,7 +186,13 @@ class CoordinateManager:
                                     # return block and original price
                                     return block, original_price
                             else:
+                                #if sprite._price == win.purchased_tower["price"]:
+                                #    upgrade_cost = sprite.upgrade()
+                                #    if player.money >= upgrade_cost:
+                                #        player.money -= upgrade_cost
+                                #        return True, upgrade_cost
                                 # player is trying to upgrade tower with same tower or trying to downgrade
+                                
                                 return False, None
                     # coordinate is valid and there is no tower in the block
                 else:

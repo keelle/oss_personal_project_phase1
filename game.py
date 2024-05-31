@@ -88,8 +88,30 @@ def play():
                     if x < pos[0] < x + coordinate_manager.buy_tower_coords[i]["tower"].get_width() and y < pos[1] < y + coordinate_manager.buy_tower_coords[i]["tower"].get_height():
                         win.mouse_pressed = True
                         win.purchased_tower = coordinate_manager.determine_tower(coordinate_manager.buy_tower_coords[i]['tower_price'], coordinate_manager.buy_tower_coords[i]["tower"])
-            
-
+                # Check if the user clicked on a tower to upgrade
+                for tower in win.towers:
+                    if tower.rect.collidepoint(pos):
+                    # If the tower is already at maximum level, do not show the upgrade button
+                        if tower.level == 3:
+                            return
+                        # Show upgrade button for the clicked tower
+                        upgrade_button = Button(image=pygame.image.load("assets/Upgrade Button2.png"), 
+                                                #pos=(tower.rect.centerx - 20, tower.rect.bottom + 10),
+                                                pos=(tower.rect.right + 10, tower.rect.top),
+                                                text_input="UPGRADE", font=get_font(20), 
+                                                base_color=(215, 252, 212), hovering_color=(255, 255, 255))
+                        screen.blit(upgrade_button.image, upgrade_button.rect)
+                        # Check for mouse click on the upgrade button
+                        if upgrade_button.check_for_input(event.pos):
+                        # Check if the player has enough money for the upgrade
+                            if player.money >= tower.upgrade_cost:
+                            # Deduct the upgrade cost from player's money
+                                player.money -= tower.upgrade_cost
+                                # Upgrade the tower
+                                tower.upgrade()
+                        else:
+                            # Player does not have enough money for the upgrade
+                            print("Not enough money for the upgrade")
             # handle drop 
             elif event.type == pygame.MOUSEBUTTONUP:
                 win.mouse_pressed = False
@@ -169,6 +191,11 @@ def play():
                     # when projectile hits the enemy, reflect the damage to enemy and kill the projectile
                     projectile._enemy.health -= projectile._tower._damage
                     projectile.kill()
+
+        # 루프 내에 업그레이드 버튼 렌더링 코드 추가
+        for tower in win.towers:
+            if tower.upgrade_button_active:
+                pygame.draw.rect(screen, upgrade_button_color, tower.upgrade_button_rect)
 
         # draw players health and money
         player.draw_player_info(screen)
