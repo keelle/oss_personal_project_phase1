@@ -27,7 +27,9 @@ class Tower(pygame.sprite.Sprite):
     self.button_width = 100 
     self.button_height = 50  
     self.upgrade_button_rect = pygame.Rect(0, 0, self.button_width, self.button_height)      
-    self.upgrade_cost = 100  
+    self.upgrade_cost = 100
+    self.font = pygame.font.Font("assets/font.ttf", 14)
+
   def activate_upgrade_button(self):
     self.upgrade_button_active = False
     self.upgrade_button_rect.topleft = (self.rect.right, self.rect.top)
@@ -54,14 +56,26 @@ class Tower(pygame.sprite.Sprite):
     #                             self.rect.width + self._range,
     #                             self.rect.height + self._range)
     #return upgrade_cost
+  #def upgrade(self):
+    #self.level += 1
+    #self._damage += 10  
+    #self._range += 10  
+    #self._shooting_speed += 1  
+    #return 100 * self.level  
   def upgrade(self):
-    self.level += 1
-    self._damage += 10  
-    self._range += 10  
-    self._shooting_speed += 1  
-    return 100 * self.level  
+        if self.level < 3:
+            self.level += 1
+            self._damage += 10  # 데미지를 10씩 증가하는 예시
+            self._range += 10   # 사거리를 10씩 증가하는 예시
+            self._shooting_speed += 1  # 발사 속도를 1씩 증가하는 예시
+            return 100 * self.level  # 업그레이드 비용은 업그레이드 레벨에 따라 증가하는 예시
+        else:
+            print("Tower is already at maximum level")
 
 
+  def draw_level(self, screen):
+    level_text = self.font.render(f"Lv: {self.level}", True, (255, 255, 255))
+    screen.blit(level_text, (self.rect.centerx - level_text.get_width() // 2, self.rect.bottom + 5))
 
   def draw_range_box(self, screen):
       # detect mouse hover over tower

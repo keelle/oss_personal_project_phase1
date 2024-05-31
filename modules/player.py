@@ -3,7 +3,7 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self):
       super(Player, self).__init__()
-      self.health = 10
+      self.health = 1
       # default money
       self.money = 10000
       self.font = pygame.font.Font('assets/font.ttf', 22)

@@ -3,7 +3,7 @@ from modules.enemy import Enemy, WaveController
 from modules.tower import Tower, Projectile
 from modules.player import Player
 from modules.button import Button
-import pygame, sys
+import pygame, sys, os
 
 pygame.init()
 
@@ -34,6 +34,60 @@ ADDWAVE = pygame.USEREVENT + 2
 # handle framerate
 clock = pygame.time.Clock()
 
+font = pygame.font.Font("assets/font.ttf", 36)
+def input_name():
+    name = ""
+    input_active = True
+    while input_active:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    input_active = False
+                elif event.key == pygame.K_BACKSPACE:
+                    name = name[:-1]
+                else:
+                    name += event.unicode
+        screen.fill((255, 255, 255))
+        txt_surface = font.render(name, True, (0, 0, 0))
+        width = max(200, txt_surface.get_width()+10)
+        pygame.draw.rect(screen, (0, 0, 0), (100, 100, width, 32), 2)
+        screen.blit(txt_surface, (100, 100))
+        pygame.display.flip()
+    return name
+def game_over(score):
+    name = input_name()
+    #print("Name:", name)
+    #print("Score:", score)
+    with open("scoreboard.txt", "a") as file:
+        file.write(f"{name}: {score}\n")
+
+def show_scoreboard():
+    scores = []
+    with open("scoreboard.txt", "r") as file:
+        for line in file:
+            name, score = line.strip().split(": ")
+            scores.append((name, int(score)))
+    sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
+    #running = True
+    #while running:
+    while True:
+      screen.fill((200, 200, 200))
+      y = 50
+      for i, (name, score) in enumerate(sorted_scores):
+        text = font.render(f"{i+1}. {name}: {score}", True, (0, 0, 0))
+        screen.blit(text, (100, y))
+        y += 30
+    #for event in pygame.event.get():
+    #    if event.type == pygame.QUIT:
+    #        pygame.quit()
+    #        sys.exit()
+    #    elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+    #        return  # 메뉴로 돌아가기
+      pygame.display.flip()
+    #return
 def play():
     # set display caption
     pygame.display.set_caption("Canyon Defenders")
@@ -92,8 +146,10 @@ def play():
                 for tower in win.towers:
                     if tower.rect.collidepoint(pos):
                     # If the tower is already at maximum level, do not show the upgrade button
-                        if tower.level == 3:
-                            return
+                      #if tower.level < 3:  
+                        #if tower.level >= 3:
+                            #return
+                            #print("Tower is already at maximum level")
                         # Show upgrade button for the clicked tower
                         upgrade_button = Button(image=pygame.image.load("assets/Upgrade Button2.png"), 
                                                 #pos=(tower.rect.centerx - 20, tower.rect.bottom + 10),
@@ -102,13 +158,15 @@ def play():
                                                 base_color=(215, 252, 212), hovering_color=(255, 255, 255))
                         screen.blit(upgrade_button.image, upgrade_button.rect)
                         # Check for mouse click on the upgrade button
-                        if upgrade_button.check_for_input(event.pos):
+                        if upgrade_button.check_for_input(pos):
                         # Check if the player has enough money for the upgrade
-                            if player.money >= tower.upgrade_cost:
+                            if tower.level < 3 and player.money >= tower.upgrade_cost:
                             # Deduct the upgrade cost from player's money
                                 player.money -= tower.upgrade_cost
                                 # Upgrade the tower
                                 tower.upgrade()
+                            else:
+                                print("Tower is already at maximum level")
                         else:
                             # Player does not have enough money for the upgrade
                             print("Not enough money for the upgrade")
@@ -151,6 +209,7 @@ def play():
         # handle when player out of health
         if player.health <= 0:
             # this will change
+            game_over(100)
             pygame.quit()
             sys.exit()
     
@@ -168,6 +227,7 @@ def play():
             
         # add projectiles to enemies in range
         for tower in win.towers:
+            tower.draw_level(screen)
             tower.draw_range_box(screen)
             # find the enemies in towers range
             range_enemies = [enemy for enemy in win.enemies if tower.range_box.colliderect(enemy.rect)]
@@ -228,10 +288,11 @@ def menu():
                                 text_input="PLAY", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
         quit_button = Button(image=pygame.image.load("assets/Quit Rect.png"), pos=(640, 500), 
                                 text_input="QUIT", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
-
+        score_button = Button(image=pygame.image.load("assets/Score Rect.png"), pos=(640, 400), 
+                                text_input="SCORE", font=get_font(45), base_color=(215, 252, 212), hovering_color=(255, 255, 255))
         screen.blit(menu_text, menu_rect)
 
-        for button in [play_button, quit_button]:
+        for button in [play_button, quit_button, score_button]:
                 button.change_color(mouse_pos)
                 button.update(screen)
             
@@ -241,11 +302,17 @@ def menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if play_button.check_for_input(mouse_pos):
+                    print("Play button clicked")
                     play()
-                if quit_button.check_for_input(mouse_pos):
+                elif quit_button.check_for_input(mouse_pos):
                     pygame.quit()
                     sys.exit()
-
+                elif score_button.check_for_input(mouse_pos):
+                #else:
+                    print("Score button clicked")
+                    show_scoreboard()
         pygame.display.update()
-
+        #pygame.display.flip()
 menu()
+#if __name__ == "__main__":
+#    menu()
