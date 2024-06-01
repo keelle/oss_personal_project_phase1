@@ -7,13 +7,8 @@
 # Canyon Defenders
 Canyon Defenders is a tower defense game where you must defend your canyon from waves of enemies. You have 15 waves to survive, and you can use four different types of towers to help you. You can drag and drop towers to place them, and you can drag and drop new towers to upgrade existing towers
 
-## Screenshot
-![](screenshots/main-menu.png)
-![](screenshots/ingame.png)
-
 ## 게임 설명
 ### 게임 플레이 방법
-
 - 타워를 마우스로 끌어와서 맵에 배치하면된다.
 - 타워를 클릭하여 업그레이드 할 수도 있고 원래있던 타워자리에 새로운 타워를 배치할 수도 있다.
 - 타워를 적절히 사용하여 모든 좀비들을 막아내면 된다.
@@ -36,7 +31,7 @@ Canyon Defenders is a tower defense game where you must defend your canyon from 
 - 게임이 끝나면 자신의 이름을 입력할 수 있다.
 - Score 버튼을 통해 자신이 몇 등인지 확인할 수 있다.
 
-## 실행방법
+## 게임실행방법
 
 Clone the project
 
@@ -63,6 +58,9 @@ Start game
 ```
 
 ## 실행 화면
+![](screenshots/게임사진1.png)
+![](screenshots/게임사진2.png)
+![](screenshots/게임사진3.png)
 
 ## 코드 설명
 

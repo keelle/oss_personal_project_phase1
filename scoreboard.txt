@@ -1,5 +1,0 @@
-sdfsdf: 100
-myname: 100
-abcde: 48500
-dff: 103500
-qqqq: 104650

@@ -307,14 +307,11 @@ def menu():
                 sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if play_button.check_for_input(mouse_pos):
-                    print("Play button clicked")
                     play()
                 elif quit_button.check_for_input(mouse_pos):
                     pygame.quit()
                     sys.exit()
                 elif score_button.check_for_input(mouse_pos):
-                #else:
-                    print("Score button clicked")
                     show_scoreboard()
         pygame.display.update()
 menu()
