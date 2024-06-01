@@ -1,7 +1,6 @@
 import pygame
 
 class WaveController:
-
     def __init__(self):
         self._wave_index = 0
         self._spawn_count = 0
@@ -35,7 +34,6 @@ class WaveController:
         wave_surface.blit(self.scaled_img, (0, 0))
         screen.blit(wave_surface, (25, 125))
 
-
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, health, speed, reward, waypoints):
         super(Enemy, self).__init__()
@@ -52,9 +50,6 @@ class Enemy(pygame.sprite.Sprite):
         self._target_waypoint = 0
         self._speed = speed
 
-
-  
-
     def draw_health_bar(self, surf, pos, size, borderC, backC, healthC, progress):
         pygame.draw.rect(surf, backC, (*pos, *size))
         pygame.draw.rect(surf, borderC, (*pos, *size), 1)
@@ -67,7 +62,6 @@ class Enemy(pygame.sprite.Sprite):
             round(innerSize[1]),
         )
         pygame.draw.rect(surf, healthC, rect)
-
 
     def _load_sprite_sheet(self):
         sprite_sheet = pygame.image.load('assets/orc.png').convert_alpha()

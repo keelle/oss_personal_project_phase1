@@ -3,7 +3,7 @@ from modules.enemy import Enemy, WaveController
 from modules.tower import Tower, Projectile
 from modules.player import Player
 from modules.button import Button
-import pygame, sys, os
+import pygame, sys
 
 pygame.init()
 
@@ -28,6 +28,7 @@ wave_controller = WaveController()
 # Create a custom event for adding a new enemy every second
 ADDENEMY = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDENEMY, 1000)
+
 # Create a custom event for adding waves
 ADDWAVE = pygame.USEREVENT + 2
 
@@ -86,7 +87,7 @@ def show_scoreboard():
         for i, (name, score) in enumerate(sorted_scores):
             text = font.render(f"{i+1}. {name}: {score}", True, (0, 0, 0))
             screen.blit(text, (100, y))
-            y += 30
+            y += 50
         pygame.display.flip()    
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -154,9 +155,8 @@ def play():
                 # Check if the user clicked on a tower to upgrade
                 for tower in win.towers:
                     if tower.rect.collidepoint(pos):
-                        upgrade_button = Button(image=pygame.image.load("assets/Upgrade Button2.png"), 
+                        upgrade_button = Button(image=pygame.image.load("assets/Upgrade Button.png"), 
                                                 pos=(tower.rect.centerx - 20, tower.rect.bottom + 10),
-                                                #pos=(tower.rect.right + 10, tower.rect.top),
                                                 text_input="UPGRADE", font=get_font(20), 
                                                 base_color=(215, 252, 212), hovering_color=(255, 255, 255))
                         screen.blit(upgrade_button.image, upgrade_button.rect)
@@ -254,10 +254,9 @@ def play():
                     # when projectile hits the enemy, reflect the damage to enemy and kill the projectile
                     projectile._enemy.health -= projectile._tower._damage
                     if projectile._enemy.health <= 0:
-                        add_score(50)  # 적을 죽일 때마다 50점 추가
+                        add_score(50)
                     projectile.kill()
 
-        # 루프 내에 업그레이드 버튼 렌더링 코드 추가
         for tower in win.towers:
             if tower.upgrade_button_active:
                 pygame.draw.rect(screen, upgrade_button_color, tower.upgrade_button_rect)

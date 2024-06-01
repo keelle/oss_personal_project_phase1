@@ -14,7 +14,6 @@ class Window:
         self.mouse_pressed = False
         self.purchased_tower = None
 
-
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
         pygame.sprite.Sprite.__init__(self)  # call Sprite initializer
@@ -22,7 +21,6 @@ class Background(pygame.sprite.Sprite):
         self._rect = self._image.get_rect()
         self._rect.left, self._rect.top = location
        
-
 class CoordinateManager:
     def __init__(self):
         self.buy_tower_coords = []
@@ -278,9 +276,3 @@ class CoordinateManager:
             tower["shooting_rate"] = 5
 
         return tower
-
-        
-
-   
-
-

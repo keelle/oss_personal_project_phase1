@@ -25,7 +25,6 @@ screen = pygame.display.set_mode([SCREEN_WIDTH, SCREEN_HEIGHT])
 ADDENEMY = pygame.USEREVENT + 1
 pygame.time.set_timer(ADDENEMY, 250)
 
-
 class Background(pygame.sprite.Sprite):
     def __init__(self, image_file, location):
         pygame.sprite.Sprite.__init__(self)  # call Sprite initializer
@@ -33,12 +32,10 @@ class Background(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = location
 
-
 BackGround = Background("./assets/background.png", [0, 0])
 
 hero_png = pygame.image.load("./assets/hero.png").convert_alpha()
 hero_png = pygame.transform.scale(hero_png, (125, 125))
-
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -71,10 +68,8 @@ class Player(pygame.sprite.Sprite):
         if self.rect.bottom >= SCREEN_HEIGHT:
             self.rect.bottom = SCREEN_HEIGHT
 
-
 enemy_png = pygame.image.load("./assets/enemy.png").convert_alpha()
 enemy_png = pygame.transform.scale(enemy_png, (125, 125))
-
 
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
@@ -93,7 +88,6 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.move_ip(-self.speed, 0)
         if self.rect.right < 0:
             self.kill()
-
 
 new_player = Player()
 
@@ -148,6 +142,5 @@ while running:
     enemies.update()
     # Flip the display
     pygame.display.flip()
-
 # Done! Time to quit.
 pygame.quit()

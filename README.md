@@ -4,9 +4,8 @@
 1) https://github.com/pygame/pygame "pygame"
 2) https://github.com/mustafa-mun/canyon-defenders
 
-# Canyon Defenders
-Canyon Defenders is a tower defense game where you must defend your canyon from waves of enemies. You have 15 waves to survive, and you can use four different types of towers to help you. You can drag and drop towers to place them, and you can drag and drop new towers to upgrade existing towers
-
+# 타워디펜스
+- 타워 디펜스 게임은 몰려오는 적들을 타워를 설치하여 막는 게임이다.
 ## 게임 설명
 ### 게임 플레이 방법
 - 타워를 마우스로 끌어와서 맵에 배치하면된다.
@@ -16,7 +15,7 @@ Canyon Defenders is a tower defense game where you must defend your canyon from 
 
 ## 게임 세부내용 설명
 ### 타워
-- 게임에 4종류의 타워가 있다.
+- 게임에 6종류의 타워가 있다.
 - 각각의 타워는 공격력, 공격범위 같은 것이 다르며 비쌀수록 능력치가 더 좋다.
 - 타워를 놓으면 그 타워가 어디까지 공격 가능한지 알수 있다.
 - 타워를 업그레이드 하면 성능을 올릴 수 있다.
@@ -63,4 +62,11 @@ Start game
 ![](screenshots/게임사진3.png)
 
 ## 코드 설명
-
+- game.py: window 클래스를 이용하여 게임 창 설정 및 초기화를 한다. play함수를 통해서 게임 상태를 관리하고 menu함수로는 게임 초기 화면을 관리한다. 또한, enemy, tower 클래스 등을 이용하여 게임 속 요소들을 표현한다.
+- playground.py: 게임 윈도우 설정, 배경 및 플레이어 설정, 적 생성 및 게임 종료를 담당한다.
+- __init__.py
+- button.py: 버튼이 클릭 가능하도록 관리한다.
+- enemy.py: 적과 웨이브를 관리한다.
+- player.py: 플레이어의 초기상태를 설정하고 화면에 나타낸다.
+- tower.py: 투사체를 초기화하고 투사체의 움직임을 업데이트한다.
+- window.py: 타워 배치 및 구매 관리를 담당하며 타워 가격, 공격속도 등의 타워 정보를 저장한다.

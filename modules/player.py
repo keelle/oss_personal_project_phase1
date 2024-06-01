@@ -13,7 +13,6 @@ class Player(pygame.sprite.Sprite):
       self.money_icon = pygame.image.load('assets/coin.png').convert_alpha()
       self.money_icon_scaled = pygame.transform.scale(self.money_icon, (35, 35))
 
-
     def draw_player_info(self, screen):
       # Draw health
       health = self.font.render(str(self.health), True, (255, 255, 255))
