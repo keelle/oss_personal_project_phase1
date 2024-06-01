@@ -10,7 +10,7 @@ class WaveController:
         self._enemy_speeds = [3, 3, 4, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 7, 8]
         self._enemy_healths = []
         self._populate_enemy_healths()
-        self._enemy_rewards = [50, 50, 45, 45, 45, 45, 45, 45, 45, 35, 35, 35, 30, 30, 25]
+        self._enemy_rewards = [50, 50, 45, 45, 45, 45, 45, 45, 45, 35, 35, 35, 30, 30, 30]
         self._enemy_rate = [1000, 1000, 900, 850, 800, 750, 650, 650, 600, 550, 550, 500, 500, 450, 400]
         self.font = pygame.font.Font('assets/font.ttf', 22)
         self.img = pygame.image.load('assets/enemy.png').convert_alpha()

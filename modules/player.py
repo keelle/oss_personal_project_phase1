@@ -3,9 +3,10 @@ import pygame
 class Player(pygame.sprite.Sprite):
     def __init__(self):
       super(Player, self).__init__()
-      self.health = 1
+      self.health = 15
       # default money
-      self.money = 10000
+      self.money = 1000
+      self.score = 0
       self.font = pygame.font.Font('assets/font.ttf', 22)
       self.health_icon = pygame.image.load('assets/heart.png').convert_alpha()
       self.health_icon_scaled = pygame.transform.scale(self.health_icon, (35, 35))

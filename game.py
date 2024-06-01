@@ -35,6 +35,16 @@ ADDWAVE = pygame.USEREVENT + 2
 clock = pygame.time.Clock()
 
 font = pygame.font.Font("assets/font.ttf", 36)
+current_score = 0
+
+def add_score(base_score, multiplier=1):
+    global current_score
+    current_score += base_score * multiplier
+
+def end_game():
+    final_score = current_score + (player.money * 10)
+    game_over(final_score)
+
 def input_name():
     name = ""
     input_active = True
@@ -57,10 +67,9 @@ def input_name():
         screen.blit(txt_surface, (100, 100))
         pygame.display.flip()
     return name
+
 def game_over(score):
     name = input_name()
-    #print("Name:", name)
-    #print("Score:", score)
     with open("scoreboard.txt", "a") as file:
         file.write(f"{name}: {score}\n")
 
@@ -71,8 +80,6 @@ def show_scoreboard():
             name, score = line.strip().split(": ")
             scores.append((name, int(score)))
     sorted_scores = sorted(scores, key=lambda x: x[1], reverse=True)
-    #running = True
-    #while running:
     while True:
         screen.fill((200, 200, 200))
         y = 50
@@ -86,9 +93,11 @@ def show_scoreboard():
                 pygame.quit()
                 sys.exit()
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                return  # 메뉴로 돌아가기
-    #return
+                return
+
 def play():
+    global current_score
+    current_score = 0
     # set display caption
     pygame.display.set_caption("Canyon Defenders")
     # main game loop
@@ -145,15 +154,9 @@ def play():
                 # Check if the user clicked on a tower to upgrade
                 for tower in win.towers:
                     if tower.rect.collidepoint(pos):
-                    # If the tower is already at maximum level, do not show the upgrade button
-                      #if tower.level < 3:  
-                        #if tower.level >= 3:
-                            #return
-                            #print("Tower is already at maximum level")
-                        # Show upgrade button for the clicked tower
                         upgrade_button = Button(image=pygame.image.load("assets/Upgrade Button2.png"), 
-                                                #pos=(tower.rect.centerx - 20, tower.rect.bottom + 10),
-                                                pos=(tower.rect.right + 10, tower.rect.top),
+                                                pos=(tower.rect.centerx - 20, tower.rect.bottom + 10),
+                                                #pos=(tower.rect.right + 10, tower.rect.top),
                                                 text_input="UPGRADE", font=get_font(20), 
                                                 base_color=(215, 252, 212), hovering_color=(255, 255, 255))
                         screen.blit(upgrade_button.image, upgrade_button.rect)
@@ -209,7 +212,7 @@ def play():
         # handle when player out of health
         if player.health <= 0:
             # this will change
-            game_over(100)
+            end_game()
             pygame.quit()
             sys.exit()
     
@@ -250,6 +253,8 @@ def play():
                 if projectile.rect.colliderect(projectile._enemy.rect):
                     # when projectile hits the enemy, reflect the damage to enemy and kill the projectile
                     projectile._enemy.health -= projectile._tower._damage
+                    if projectile._enemy.health <= 0:
+                        add_score(50)  # 적을 죽일 때마다 50점 추가
                     projectile.kill()
 
         # 루프 내에 업그레이드 버튼 렌더링 코드 추가
@@ -312,7 +317,4 @@ def menu():
                     print("Score button clicked")
                     show_scoreboard()
         pygame.display.update()
-        #pygame.display.flip()
 menu()
-#if __name__ == "__main__":
-#    menu()
