@@ -55,11 +55,8 @@ Start game
 ```bash
   python3 game.py
 ```
-
-## 실행 화면
-![](screenshots/게임사진1.png)
-![](screenshots/게임사진2.png)
-![](screenshots/게임사진3.png)
+## 실행 예시
+![example](https://github.com/keelle/oss_personal_project_phase1/assets/82808745/211e9105-702b-4ce2-9408-c6e4d7f5d264)
 
 ## 코드 설명
 - game.py: window 클래스를 이용하여 게임 창 설정 및 초기화를 한다. play함수를 통해서 게임 상태를 관리하고 menu함수로는 게임 초기 화면을 관리한다. 또한, enemy, tower 클래스 등을 이용하여 게임 속 요소들을 표현한다.
