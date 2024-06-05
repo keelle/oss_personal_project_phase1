@@ -19,13 +19,13 @@ class WaveController:
         base_number = 10
         for i in range(15):
             self._enemy_numbers.append(base_number)
-            base_number += 7
+            base_number += 5
     
     def _populate_enemy_healths(self):
         base_number = 50
         for i in range(15):
             self._enemy_healths.append(base_number)
-            base_number += 65
+            base_number += 50
             
     def draw_wave_info(self, screen):
         wave = self.font.render(f"#{str(self._wave_index + 1)}", True, (255, 255, 255))

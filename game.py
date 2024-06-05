@@ -254,7 +254,7 @@ def play():
                     # when projectile hits the enemy, reflect the damage to enemy and kill the projectile
                     projectile._enemy.health -= projectile._tower._damage
                     if projectile._enemy.health <= 0:
-                        add_score(50)
+                        add_score(100)
                     projectile.kill()
 
         for tower in win.towers:
